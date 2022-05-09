@@ -63,7 +63,7 @@ export default class Login extends Component {
       <section>
         {loading ? (<Loading />) : (
 
-          <>
+          <div>
             <div data-testid="page-login">Login</div>
             <div>
               <form>
@@ -85,7 +85,7 @@ export default class Login extends Component {
               </form>
             </div>
 
-          </>
+          </div>
         )}
       </section>
 
