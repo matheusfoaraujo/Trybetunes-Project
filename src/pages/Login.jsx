@@ -48,8 +48,8 @@ export default class Login extends Component {
     await createUser({ name: login });
 
     this.setState({
-      loading: false,
-      redirect: true,
+      loading: false, // para de mostrar a mensagem do loading
+      redirect: true, // redireciona pra proxima pagina (/search no caso)
     });
   }
 
