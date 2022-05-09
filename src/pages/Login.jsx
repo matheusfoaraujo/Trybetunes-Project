@@ -28,7 +28,6 @@ export default class Login extends Component {
     this.setState({ login: value }, () => {
       // callback que pega os valores do estado já atualizados pelo onChange
       const { login } = this.state;
-      console.log(this.state);
       const minChar = 2;
       if (login.length > minChar) {
         this.setState({ isEnterButtonDisabled: false });
