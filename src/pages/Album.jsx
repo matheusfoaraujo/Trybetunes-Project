@@ -48,10 +48,16 @@ export default class Album extends Component {
           {musicsList.length >= 1 ? musicsList.map((music, index) => (
             <div key={ index }>
               {music.trackName
-                ? <MusicCard
-                  trackName={ music.trackName }
-                  audioPreview={ music.previewUrl }
-                />
+                ? (
+                  <div>
+                    {' '}
+                    <MusicCard
+                      trackName={ music.trackName }
+                      audioPreview={ music.previewUrl }
+                    />
+                    {' '}
+
+                  </div>)
                 : ''}
             </div>
           ))
