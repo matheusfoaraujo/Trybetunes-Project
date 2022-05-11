@@ -9,6 +9,18 @@ import ProfileEdit from './pages/ProfileEdit';
 import Search from './pages/Search';
 
 class App extends React.Component {
+  /* state = {
+
+    musicsList: { },
+    artist: '',
+    album: '',
+
+  }
+
+  setMusics = (musicsList) => {
+    this.setState({ musicsList });
+  } */
+
   render() {
     return (
       <section>
@@ -16,7 +28,14 @@ class App extends React.Component {
         <Switch>
           <Route exact path="/" component={ Login } />
           <Route exact path="/profile" component={ Profile } />
-          <Route path="/album/:id" component={ Album } />
+          <Route
+            path="/album/:id"
+            /* render={ (props) => (<Album
+              { ...props }
+              setMusicsfunc={ this.setMusics }
+              musicsList={ this.props.musicsList }
+            />) } */component={ Album }
+          />
           <Route path="/profile/edit" component={ ProfileEdit } />
           <Route path="/search" component={ Search } />
           <Route path="/favorites" component={ Favorites } />

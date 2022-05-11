@@ -11,6 +11,7 @@ export default class Album extends Component {
       musicsList: { /* details: null */ },
       artist: '',
       album: '',
+      /* thisTimeMusic: '', */
     };
   }
 
@@ -20,7 +21,6 @@ export default class Album extends Component {
     const { id } = params;
     const albumMusics = await getMusics(id);
     const { artistName, collectionName } = albumMusics[0];
-    console.log(albumMusics);
     this.setState({
       musicsList: albumMusics,
       artist: artistName,
@@ -28,10 +28,53 @@ export default class Album extends Component {
     });
   }
 
-  // handleInputChange = ({ target }) => {
-  //   const { value } = target;
-  //   this.setState(() => ({ searchInput: value }));
-  // }
+  /* addFavoriteSongCheckBox = async ({ target }) => {
+    const { musicsList, thisTimeMusic } = this.state;
+    const { match: { params: { id } } } = this.props;
+    this.setState({
+      loading: true, // faz com que loading seja true e mostre a mensagem de loading enquanto o CreateUser não for chamado.
+
+    });
+    const newMusics = musicsList.map((music) => {
+      if (target.checked && music.collectionId === Number(id)) {
+        music.favorite = true;
+        this.setState({
+          thisTimeMusic: music,
+        });
+      } else {
+        music.favorite = false;
+      }
+      return music;
+    });
+    await addSong(thisTimeMusic);
+    this.setState({
+      musicsList: newMusics,
+      loading: false,
+    });
+  } */
+
+  /* addFavoriteSongCheckBox = async () => {
+    this.setState({
+      loading: true, // faz com que loading seja true e mostre a mensagem de loading enquanto o CreateUser não for chamado.
+
+    });
+    const newMusics = musicsList.map((music) => {
+      if (target.checked && music.collectionId === Number(id)) {
+        music.favorite = true;
+        this.setState({
+          thisTimeMusic: music,
+        });
+      } else {
+        music.favorite = false;
+      }
+      return music;
+    });
+    await addSong(song);
+    this.setState({
+      loading: false, // para de mostrar a mensagem do loading
+    });
+  }
+*/
 
   render() {
     const { musicsList, artist, album } = this.state;
@@ -50,12 +93,9 @@ export default class Album extends Component {
               {music.trackName
                 ? (
                   <div>
-                    {' '}
                     <MusicCard
-                      trackName={ music.trackName }
-                      audioPreview={ music.previewUrl }
+                      song={ music }
                     />
-                    {' '}
 
                   </div>)
                 : ''}

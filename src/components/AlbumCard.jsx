@@ -1,7 +1,7 @@
 import propTypes from 'prop-types';
 import React, { Component } from 'react';
 
-export default class MusicCard extends Component {
+export default class AlbumCard extends Component {
   /* addToFavorite = () => {
      const { collectionId,
        artistName,
@@ -39,7 +39,7 @@ export default class MusicCard extends Component {
     );
   }
 }
-MusicCard.propTypes = {
+AlbumCard.propTypes = {
   collectionId: propTypes.number.isRequired,
   artistName: propTypes.string.isRequired,
   collectionName: propTypes.string.isRequired,
