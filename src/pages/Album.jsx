@@ -11,7 +11,6 @@ export default class Album extends Component {
       musicsList: { /* details: null */ },
       artist: '',
       album: '',
-      /* thisTimeMusic: '', */
     };
   }
 
@@ -52,29 +51,6 @@ export default class Album extends Component {
       loading: false,
     });
   } */
-
-  /* addFavoriteSongCheckBox = async () => {
-    this.setState({
-      loading: true, // faz com que loading seja true e mostre a mensagem de loading enquanto o CreateUser não for chamado.
-
-    });
-    const newMusics = musicsList.map((music) => {
-      if (target.checked && music.collectionId === Number(id)) {
-        music.favorite = true;
-        this.setState({
-          thisTimeMusic: music,
-        });
-      } else {
-        music.favorite = false;
-      }
-      return music;
-    });
-    await addSong(song);
-    this.setState({
-      loading: false, // para de mostrar a mensagem do loading
-    });
-  }
-*/
 
   render() {
     const { musicsList, artist, album } = this.state;

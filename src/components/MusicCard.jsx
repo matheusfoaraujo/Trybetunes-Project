@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Loading from './Loading';
-import { addSong } from '../services/favoriteSongsAPI';
+import { addSong, getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
 
 export default class MusicCard extends Component {
  state = {
@@ -9,31 +9,40 @@ export default class MusicCard extends Component {
    favorite: false,
  }
 
- /* addToFavorite = () => {
-     const { collectionId,
-       artistName,
-       collectionName,
-       albumImage,
-       trackCount } = this.props;
-     const albumFavorite = {
-       collectionId, artistName, collectionName, albumImage, trackCount };
-     const recoveredAlbum = JSON.parse(localStorage.getItem('FavAlbum')) || [];
-     recoveredAlbum.push(albumFavorite);
-     localStorage.setItem('FavAlbum', JSON.stringify(recoveredAlbum));
-   } */
-   addFavoriteSongCheckBox = async () => {
+ componentDidMount = async () => {
+   const { song } = this.props;
+   const faveSongsResponse = await getFavoriteSongs();
+   // const tabas = JSON.parse(localStorage.getItem('favorite_songs'));
+   console.log(faveSongsResponse);
+   const faveSongs = faveSongsResponse.some((songEl) => song.trackId === songEl.trackId);
+   this.setState({ favorite: faveSongs });
+ }
+
+   addFavoriteSongCheckBox = ({ target }) => {
+     const { favorite } = this.state;
      const { song } = this.props;
      /* const { musicsList, thisTimeMusic } = this.state; */
      /* const { match: { params: { id } } } = this.props; */
+
      this.setState({
        loading: true, // faz com que loading seja true e mostre a mensagem de loading enquanto o CreateUser não for chamado.
+       favorite: target.checked,
+     }, async () => {
+       if (!favorite) {
+         await addSong(song);
+       } else {
+         await removeSong(song);
+       }
+       this.setState({
+         // favorite: true,
+         loading: false,
+         // favorite: !favorite,
+       });
+     });
+     console.log(target.checked);
+     console.log(favorite);
 
-     });
-     await addSong(song);
-     this.setState({
-       favorite: true,
-       loading: false,
-     });
+     // localStorage.setItem(song.trackId, favorite);
    }
 
    render() {
