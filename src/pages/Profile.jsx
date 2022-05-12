@@ -33,14 +33,14 @@ render() {
         {loading ? <Loading /> : (
           <>
             <>
-              <p>{userProfile.userName}</p>
-              <p>{userProfile.userEmail}</p>
+              <p>{userProfile.name}</p>
+              <p>{userProfile.email}</p>
               <img
                 data-testid="profile-image"
-                src={ userProfile.userImage }
+                src={ userProfile.image }
                 alt="profileImage"
               />
-              <p>{userProfile.userDescription}</p>
+              <p>{userProfile.description}</p>
             </>
             <Link to="/profile/edit">Editar perfil</Link>
 
