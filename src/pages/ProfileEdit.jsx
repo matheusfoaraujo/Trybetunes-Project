@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 import { updateUser, getUser } from '../services/userAPI';
@@ -12,14 +13,14 @@ export default class ProfileEdit extends Component {
     userDescription: '',
     loading: false,
     isSaveButtonDisabled: true,
+    redirect: false,
   }
 
   componentDidMount = async () => {
     this.setState({
       loading: true,
     });
-    const user = await getUser();
-    const { name, email, image, description } = user;
+    const { name, email, image, description } = await getUser();
     console.log(name);
     this.setState({
       userName: name,
@@ -28,26 +29,39 @@ export default class ProfileEdit extends Component {
       userDescription: description,
       loading: false,
     });
-    console.log(user);
+    const {
+      userName,
+      userEmail,
+      userImage,
+      userDescription } = this.state;
+    const minChar = 1;
+    if (userName.length > minChar
+      && userEmail.length > minChar
+      && userImage.length > minChar
+      && userDescription.length > minChar
+      && userEmail.includes('@')
+    ) {
+      this.setState({ isSaveButtonDisabled: false });
+    } else {
+      this.setState({ isSaveButtonDisabled: true });
+    }
   }
 
        onInputChange = ({ target }) => { // desconstroi o evento pegando o target, o node que está sendo modificado
-         const { value, name } = target;
-         console.log(target);
-         console.log(value, name);// desconstroi o valor de dentro do target que está sendo modificado
+         const { value, name } = target;// desconstroi o valor de dentro do target que está sendo modificado
          this.setState({ [name]: value }, () => {
            // callback que pega os valores do estado já atualizados pelo onChange
-           const { userName, userEmail, userImage, userDescription } = this.state;
+           const {
+             userName,
+             userEmail,
+             userImage,
+             userDescription } = this.state;
            const minChar = 1;
-           if (userEmail.includes('@test.com')) {
-             this.setState({ isSaveButtonDisabled: false });
-           } else {
-             this.setState({ isSaveButtonDisabled: true });
-           }
            if (userName.length > minChar
-        || userEmail.length > minChar
-        || userImage.length > minChar
-        || userDescription.length > minChar
+            && userEmail.length > minChar
+        && userImage.length > minChar
+        && userDescription.length > minChar
+        && userEmail.includes('@')
            ) {
              this.setState({ isSaveButtonDisabled: false });
            } else {
@@ -56,18 +70,24 @@ export default class ProfileEdit extends Component {
          });
        }
 
-  onSaveButtonClick = async (event) => {
+  onSaveButtonClick = async () => {
     const { userName, userEmail, userImage, userDescription } = this.state;
-    event.preventDefault();
     // const { userName, userEmail, userImage, userDescription } = this.state;
 
     const updatedUser = {
-      newUserName: userName,
-      newUserEmail: userEmail,
-      newUserImage: userImage,
-      newUserDescription: userDescription,
+      name: userName,
+      email: userEmail,
+      image: userImage,
+      description: userDescription,
     };
+    this.setState({
+      loading: true,
+    });
     await updateUser(updatedUser);
+    this.setState({
+      redirect: true,
+      loading: false,
+    });
   }
 
   render() {
@@ -77,8 +97,10 @@ export default class ProfileEdit extends Component {
       userName,
       userEmail,
       userImage,
-      userDescription } = this.state;
-
+      userDescription, redirect } = this.state;
+    if (redirect) {
+      return <Redirect to="/profile" />;
+    }
     return (
       <section>
         <div>

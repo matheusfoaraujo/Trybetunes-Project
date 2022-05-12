@@ -13,7 +13,7 @@ class ProfileCard extends Component {
     return (
       <div>
         <form>
-          <label htmlFor="name">
+          <label htmlFor="userName">
             Nome:
             <input
               type="text"
@@ -24,7 +24,7 @@ class ProfileCard extends Component {
               onChange={ onInputChange }
             />
           </label>
-          <label htmlFor="email">
+          <label htmlFor="userEmail">
             Email:
             <input
               type="email"
@@ -35,18 +35,18 @@ class ProfileCard extends Component {
               onChange={ onInputChange }
             />
           </label>
-          <label htmlFor="Image">
+          <label htmlFor="userImage">
             Image:
             <input
               name="userImage"
-              id="Image"
+              id="userImage"
               type="text"
               data-testid="edit-input-image"
               value={ userImage }
               onChange={ onInputChange }
             />
           </label>
-          <label htmlFor="description">
+          <label htmlFor="userDescription">
             Description:
             <input
               type="text"
@@ -58,7 +58,7 @@ class ProfileCard extends Component {
             />
           </label>
           <button
-            type="submit"
+            type="button"
             name="saveButton"
             disabled={ isSaveButtonDisabled }
             onClick={ onSaveButtonClick }
